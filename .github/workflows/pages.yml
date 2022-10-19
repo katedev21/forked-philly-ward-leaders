@@ -31,35 +31,20 @@ defaults:
     shell: bash
 
 jobs:
-  # Build job
   build:
+
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x] # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
+        steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '14.x'
           cache: 'npm'
       - run: npm ci
-      - run: npm run lint
       - run: npm run build
-      - run: npm test
-
-      #add review and manual trigger steps
-      # - name: Wait for approval
-      #   uses: trstringer/manual-approval@v1
-      #   with: 
-      #     secret: ${{ github.TOKEN }}
-      #     approvers: katedev21
-      #     minimum-approvals: 1
-      #     issue-title: ${{github.event.inputs.reason}}
 
       - name: Setup Pages
         id: pages
@@ -69,7 +54,6 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./public
-
 
 
   # Deployment job
