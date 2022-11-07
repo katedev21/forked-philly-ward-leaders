@@ -30,3 +30,9 @@ jobs:
     - run: npm run lint
     - run: npm run build
     - run: npm test
+
+    github-actions-environment-variables-ubuntu:
+      runs-on: ubuntu-latest
+      steps:
+        - name: List of the GitHub Actions environment variables
+          run: env
